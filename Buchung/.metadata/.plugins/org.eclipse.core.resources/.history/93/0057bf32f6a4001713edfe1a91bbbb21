@@ -1,0 +1,16 @@
+package jdbc;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class GUI extends JPanel{
+	
+	public GUI(){
+		JFrame f=new JFrame();
+		f.setTitle("Flugticket");
+		f.setBackground(Color.GRAY);
+		JPanel p1 = new JPanel();
+		
+	}
+
+}
