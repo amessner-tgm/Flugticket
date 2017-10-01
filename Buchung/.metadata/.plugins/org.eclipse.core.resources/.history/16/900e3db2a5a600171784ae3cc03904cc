@@ -1,0 +1,29 @@
+package jdbc;
+import java.sql.*;
+public class Driver{
+	Connection con;
+	PreparedStatement ps;
+	ResultSet rs;
+	public Driver(){
+		try {
+			// Connection
+			
+			con= DriverManager.getConnection("jdbc:mysql://"+GUI.sqlserver.getText()+":"+GUI.sqlport.getText()+"/"+GUI.sqldatabase.getText()+","+GUI.sqluser.getText()+","+GUI.sqlpwd.getText());
+			/* //Statement
+			ps = con.prepareStatement("Select * from airlines;");
+			//Resultset
+			rs=ps.executeQuery();
+			//Ausgeben
+			while(rs.next()){
+				System.out.println(rs.getString("id")+ " , "+rs.getString("name")+ " , "+ rs.getString("country"));*/
+			
+		}catch(Exception exc){
+			exc.printStackTrace();
+		}
+
+	}
+	
+	public void getAirlines(){
+		ps = con.prepareStatement("Select * from airlines;");
+	}
+}
