@@ -18,23 +18,18 @@ public class GUI extends JPanel implements ActionListener{
 	static JComboBox abflughafenbox = new JComboBox();
 	static JComboBox zielflughafenbox = new JComboBox();
 	Driver d = new Driver();
-	JFrame f;
-	JPanel p;
-	JPanel p1;
-	JPanel p2;
-	JPanel p3;
 	
 	public void guimodell(){
-		f=new JFrame();
+		JFrame f=new JFrame();
 		f.setTitle("Flugticket");
 		f.setBackground(Color.GRAY);
 		f.setPreferredSize(new Dimension (1200,600));
-		p =new JPanel();
+		JPanel p =new JPanel();
 		p.setLayout(new BorderLayout());
-		p1 = new JPanel();
+		JPanel p1 = new JPanel();
 		p1.setLayout(new GridBagLayout());
-		p2 = new JPanel();
-		p2.setLayout(new GridBagLayout());
+		JPanel p2 = new JPanel();
+		p1.setLayout(new GridBagLayout());
 		//Überschrift
 		JLabel ueberschrift=new JLabel("Flugticket");
 		ueberschrift.setFont(new Font("Flugticket",Font.BOLD,20));
@@ -128,14 +123,13 @@ public class GUI extends JPanel implements ActionListener{
 		g.anchor=GridBagConstraints.LINE_START;
 		p2.add(zielflughafenbox, g);
 		
-		p3=new JPanel();
+		JPanel p3=new JPanel();
 		p3.setBorder(new EmptyBorder(20,20,20,20));
 		Border buttonBorder = new EmptyBorder(5,25,5,25);
 		p3.setLayout(new BoxLayout(p3,BoxLayout.X_AXIS));
 		p.add(p3,BorderLayout.SOUTH);
-		p.add(p2,BorderLayout.CENTER);
 		p3.add(Box.createHorizontalGlue());
-		JButton connection = new JButton("Connect");
+		JButton connection = new JButton("Connection");
 		connection.setBorder(buttonBorder);
 		p3.add(connection);
 		connection.addActionListener(a);
@@ -152,14 +146,6 @@ public class GUI extends JPanel implements ActionListener{
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 	}
-	public void disablep1(){
-		p1.setVisible(false);
-		p2.setVisible(true);
-	}
-	public void standardgui(){
-		p1.setVisible(true);
-		p2.setVisible(false);
-	}
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
@@ -173,9 +159,8 @@ public class GUI extends JPanel implements ActionListener{
 					
 				// Je nach Button werden andere Querys eingeleitet
 				
-				case "Connect":
-									d.getFlughafen();
-									disablep1();
+				case "connection":
+									//d.getFlughafen();
 									break;
 									
 				default:			

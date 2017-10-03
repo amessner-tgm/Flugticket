@@ -22,7 +22,6 @@ public class GUI extends JPanel implements ActionListener{
 	JPanel p;
 	JPanel p1;
 	JPanel p2;
-	JPanel p3;
 	
 	public void guimodell(){
 		f=new JFrame();
@@ -128,7 +127,7 @@ public class GUI extends JPanel implements ActionListener{
 		g.anchor=GridBagConstraints.LINE_START;
 		p2.add(zielflughafenbox, g);
 		
-		p3=new JPanel();
+		JPanel p3=new JPanel();
 		p3.setBorder(new EmptyBorder(20,20,20,20));
 		Border buttonBorder = new EmptyBorder(5,25,5,25);
 		p3.setLayout(new BoxLayout(p3,BoxLayout.X_AXIS));
@@ -152,14 +151,6 @@ public class GUI extends JPanel implements ActionListener{
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 	}
-	public void disablep1(){
-		p1.setVisible(false);
-		p2.setVisible(true);
-	}
-	public void standardgui(){
-		p1.setVisible(true);
-		p2.setVisible(false);
-	}
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
@@ -174,8 +165,7 @@ public class GUI extends JPanel implements ActionListener{
 				// Je nach Button werden andere Querys eingeleitet
 				
 				case "Connect":
-									d.getFlughafen();
-									disablep1();
+									//d.getFlughafen();
 									break;
 									
 				default:			

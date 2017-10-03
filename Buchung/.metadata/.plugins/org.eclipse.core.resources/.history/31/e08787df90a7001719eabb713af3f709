@@ -39,6 +39,7 @@ public class Driver{
 			rs=ps.executeQuery();
 			while(rs.next()){
 				flughafen.add(rs.getString("name"));
+				System.out.println(rs.getString("name"));
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -51,9 +52,7 @@ public class Driver{
 		}
 		
 	}
-	
-	public static void main(String[] arqs){
-		Driver d = new Driver();
-		d.getFlughafen();
+	public void main(String[] arqs){
+		getFlughafen();
 	}
 }

@@ -51,7 +51,6 @@ public class Driver{
 		}
 		
 	}
-	
 	public static void main(String[] arqs){
 		Driver d = new Driver();
 		d.getFlughafen();

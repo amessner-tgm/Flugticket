@@ -174,8 +174,7 @@ public class GUI extends JPanel implements ActionListener{
 				// Je nach Button werden andere Querys eingeleitet
 				
 				case "Connect":
-									d.getFlughafen();
-									disablep1();
+									//d.getFlughafen();
 									break;
 									
 				default:			

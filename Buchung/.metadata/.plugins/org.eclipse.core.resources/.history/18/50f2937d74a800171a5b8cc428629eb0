@@ -152,14 +152,6 @@ public class GUI extends JPanel implements ActionListener{
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 	}
-	public void disablep1(){
-		p1.setVisible(false);
-		p2.setVisible(true);
-	}
-	public void standardgui(){
-		p1.setVisible(true);
-		p2.setVisible(false);
-	}
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
@@ -174,8 +166,7 @@ public class GUI extends JPanel implements ActionListener{
 				// Je nach Button werden andere Querys eingeleitet
 				
 				case "Connect":
-									d.getFlughafen();
-									disablep1();
+									//d.getFlughafen();
 									break;
 									
 				default:			
