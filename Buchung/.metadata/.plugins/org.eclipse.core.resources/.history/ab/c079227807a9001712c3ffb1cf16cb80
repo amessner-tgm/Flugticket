@@ -210,9 +210,15 @@ public class GUI extends JPanel implements ActionListener{
 		g.anchor=GridBagConstraints.LINE_START;
 		p2_1.add(zielflughafenbox, g);
 		
-		JButton Buchen =new JButton("Buchen");
-		p3_1.add(Buchen, BorderLayout.CENTER);
+		p3_1.setBorder(new EmptyBorder(20,20,20,20));
+		Border buttonBorder = new EmptyBorder(5,25,5,25);
+		p3_1.setLayout(new BoxLayout(p3,BoxLayout.X_AXIS));
+		p3_1.add(Box.createHorizontalGlue());
+		JButton Buchen = new JButton("Buchen");
+		Buchen.setBorder(buttonBorder);
+		p3_1.add(Buchen,BorderLayout.CENTER);
 		Buchen.addActionListener(this);
+		
 		
 		p_1.setBackground(Color.RED);
 		p1_1.setBackground(Color.YELLOW);
@@ -238,8 +244,7 @@ public class GUI extends JPanel implements ActionListener{
 									guimodell_flug();
 									break;
 				
-				case "Buchen":
-									System.out.println(abflughafenbox.getSelectedItem());
+									
 				default:			
 									System.out.println("Something went wrong!");
 									break;

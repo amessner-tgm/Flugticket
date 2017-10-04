@@ -235,11 +235,11 @@ public class GUI extends JPanel implements ActionListener{
 				// Je nach Button werden andere Querys eingeleitet
 				
 				case "Connect":
-									guimodell_flug();
-									break;
+						guimodell_flug();
+						break;
 				
 				case "Buchen":
-									System.out.println(abflughafenbox.getSelectedItem());
+						System.out.println(abflughafenbox.getSelectedItem());
 				default:			
 									System.out.println("Something went wrong!");
 									break;

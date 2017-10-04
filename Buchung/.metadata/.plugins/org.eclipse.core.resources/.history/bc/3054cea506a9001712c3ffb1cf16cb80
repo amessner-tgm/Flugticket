@@ -187,6 +187,7 @@ public class GUI extends JPanel implements ActionListener{
 		//JLABEL
 		JLabel abflughafen=new JLabel("Abflughafen: ");
 		JLabel zielflughafen=new JLabel("Zielflughafen: ");
+		abflughafenbox.setEditable(true);
 		//GridBagLayout
 		GridBagConstraints g = new GridBagConstraints();
 		
@@ -210,9 +211,6 @@ public class GUI extends JPanel implements ActionListener{
 		g.anchor=GridBagConstraints.LINE_START;
 		p2_1.add(zielflughafenbox, g);
 		
-		JButton Buchen =new JButton("Buchen");
-		p3_1.add(Buchen, BorderLayout.CENTER);
-		Buchen.addActionListener(this);
 		
 		p_1.setBackground(Color.RED);
 		p1_1.setBackground(Color.YELLOW);
@@ -237,9 +235,7 @@ public class GUI extends JPanel implements ActionListener{
 				case "Connect":
 									guimodell_flug();
 									break;
-				
-				case "Buchen":
-									System.out.println(abflughafenbox.getSelectedItem());
+									
 				default:			
 									System.out.println("Something went wrong!");
 									break;

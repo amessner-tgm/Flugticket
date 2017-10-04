@@ -52,12 +52,9 @@ public class Driver{
 		}
 		
 	}
-	public void getFlights(){
-		try{
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
 	
+	public static void main(String[] arqs){
+		Driver d = new Driver();
+		d.getFlughafen();
+	}
 }
