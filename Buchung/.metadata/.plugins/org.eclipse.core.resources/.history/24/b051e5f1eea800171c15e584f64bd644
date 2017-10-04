@@ -12,10 +12,11 @@ public class GUI extends JPanel implements ActionListener{
 	static JTextField sqlserver=new JTextField();
 	static JTextField sqlport=new JTextField();
 	static JTextField sqluser=new JTextField();
-	static JPasswordField sqlpwd=new JPasswordField();
+	static JTextField sqlpwd=new JTextField();
 	static JTextField sqldatabase=new JTextField();
 	static JComboBox abflughafenbox = new JComboBox();
 	static JComboBox zielflughafenbox = new JComboBox();
+	Driver d = new Driver();
 	JFrame f;
 	JPanel p;
 	JPanel p1;
@@ -154,7 +155,6 @@ public class GUI extends JPanel implements ActionListener{
 	}
 	
 	public void guimodell_flug(){
-		Driver d=new Driver();
 		f_1=new JFrame();
 		f_1.setTitle("Flugticket");
 		f_1.setBackground(Color.GRAY);
@@ -195,28 +195,13 @@ public class GUI extends JPanel implements ActionListener{
 		g.anchor=GridBagConstraints.LINE_END;
 		p2_1.add(abflughafen, g);
 		
-		g.gridx=1;
-		g.gridy=0;
-		g.anchor=GridBagConstraints.LINE_START;
-		p2_1.add(abflughafenbox, g);
-		
-		g.gridx=0;
-		g.gridy=1;
-		g.anchor=GridBagConstraints.LINE_END;
-		p2_1.add(zielflughafen, g);
-		
-		g.gridx=1;
-		g.gridy=1;
-		g.anchor=GridBagConstraints.LINE_START;
-		p2_1.add(zielflughafenbox, g);
-		
 		
 		p_1.setBackground(Color.RED);
 		p1_1.setBackground(Color.YELLOW);
 		p2_1.setBackground(Color.BLUE);
 		p3_1.setBackground(Color.GREEN);
 		
-		f_1.setContentPane(p_1);
+		f_1.setContentPane(p);
 		f_1.pack();
 		f_1.setLocationRelativeTo(null);
 		f_1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

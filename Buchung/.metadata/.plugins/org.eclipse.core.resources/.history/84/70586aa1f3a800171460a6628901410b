@@ -12,10 +12,11 @@ public class GUI extends JPanel implements ActionListener{
 	static JTextField sqlserver=new JTextField();
 	static JTextField sqlport=new JTextField();
 	static JTextField sqluser=new JTextField();
-	static JPasswordField sqlpwd=new JPasswordField();
+	static JTextField sqlpwd=new JTextField();
 	static JTextField sqldatabase=new JTextField();
 	static JComboBox abflughafenbox = new JComboBox();
 	static JComboBox zielflughafenbox = new JComboBox();
+	Driver d = new Driver();
 	JFrame f;
 	JPanel p;
 	JPanel p1;
@@ -154,7 +155,6 @@ public class GUI extends JPanel implements ActionListener{
 	}
 	
 	public void guimodell_flug(){
-		Driver d=new Driver();
 		f_1=new JFrame();
 		f_1.setTitle("Flugticket");
 		f_1.setBackground(Color.GRAY);
@@ -233,6 +233,7 @@ public class GUI extends JPanel implements ActionListener{
 				
 				case "Connect":
 									guimodell_flug();
+									System.out.println("jdbc:mysql://"+GUI.sqlserver.getText()+":"+GUI.sqlport.getText()+"/"+GUI.sqldatabase.getText()+","+GUI.sqluser.getText()+","+GUI.sqlpwd.getText());
 									break;
 									
 				default:			

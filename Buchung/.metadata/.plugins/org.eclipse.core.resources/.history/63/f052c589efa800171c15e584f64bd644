@@ -15,10 +15,9 @@ public class Driver{
 	public Driver(){
 		try {
 			// Connection
-			String servport;
-			servport="jdbc:mysql://"+GUI.sqlserver.getText()+":"+Integer.parseInt(GUI.sqlport.getText())+"/"+GUI.sqldatabase.getText();
-			con= DriverManager.getConnection(servport,GUI.sqluser.getText(),GUI.sqlpwd.getText());			
-			//con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flightdata","root","");
+			//con= DriverManager.getConnection("jdbc:mysql://"+GUI.sqlserver.getText()+":"+GUI.sqlport.getText()+"/"+GUI.sqldatabase.getText()+","+GUI.sqluser.getText()+","+GUI.sqlpwd.getText());
+			
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flightdata","root","Toni0501");
 			
 			/* //Statement
 			ps = con.prepareStatement("Select * from airlines;");

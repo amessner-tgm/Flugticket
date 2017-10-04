@@ -17,7 +17,7 @@ public class Driver{
 			// Connection
 			String servport;
 			servport="jdbc:mysql://"+GUI.sqlserver.getText()+":"+Integer.parseInt(GUI.sqlport.getText())+"/"+GUI.sqldatabase.getText();
-			con= DriverManager.getConnection(servport,GUI.sqluser.getText(),GUI.sqlpwd.getText());			
+			con= DriverManager.getConnection("jdbc:mysql://"+GUI.sqlserver.getText()+":"+Integer.parseInt(GUI.sqlport.getText())+"/"+GUI.sqldatabase.getText()+","+GUI.sqluser.getText()+","+GUI.sqlpwd.getText());			
 			//con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flightdata","root","");
 			
 			/* //Statement

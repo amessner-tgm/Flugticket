@@ -16,6 +16,7 @@ public class GUI extends JPanel implements ActionListener{
 	static JTextField sqldatabase=new JTextField();
 	static JComboBox abflughafenbox = new JComboBox();
 	static JComboBox zielflughafenbox = new JComboBox();
+	Driver d = new Driver();
 	JFrame f;
 	JPanel p;
 	JPanel p1;
@@ -154,7 +155,6 @@ public class GUI extends JPanel implements ActionListener{
 	}
 	
 	public void guimodell_flug(){
-		Driver d=new Driver();
 		f_1=new JFrame();
 		f_1.setTitle("Flugticket");
 		f_1.setBackground(Color.GRAY);

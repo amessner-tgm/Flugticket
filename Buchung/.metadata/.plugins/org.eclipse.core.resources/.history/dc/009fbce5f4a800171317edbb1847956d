@@ -12,7 +12,7 @@ public class GUI extends JPanel implements ActionListener{
 	static JTextField sqlserver=new JTextField();
 	static JTextField sqlport=new JTextField();
 	static JTextField sqluser=new JTextField();
-	static JPasswordField sqlpwd=new JPasswordField();
+	static JPasswordField sqlpwd=new JPasswordField;
 	static JTextField sqldatabase=new JTextField();
 	static JComboBox abflughafenbox = new JComboBox();
 	static JComboBox zielflughafenbox = new JComboBox();
