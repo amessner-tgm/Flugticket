@@ -16,6 +16,8 @@ public class GUI extends JPanel implements ActionListener{
 	static JTextField sqldatabase=new JTextField();
 	static JComboBox abflughafenbox = new JComboBox();
 	static JComboBox zielflughafenbox = new JComboBox();
+	static JComboBox abfluglandbox=new JComboBox();
+	static JComboBox zielfluglandbox=new JComboBox();
 	JFrame f;
 	JPanel p;
 	JPanel p1;
@@ -178,7 +180,8 @@ public class GUI extends JPanel implements ActionListener{
 		ueberschrift.setHorizontalAlignment(JLabel.CENTER);
 		p1_1.add(ueberschrift, BorderLayout.CENTER);
 		
-		d.getFlughafen();
+		d.getAbFlughafen();
+		d.getZielFlughafen();
 		//Adden
 		p_1.add(p1_1, BorderLayout.NORTH);
 		p_1.add(p3_1,BorderLayout.SOUTH);
@@ -187,6 +190,8 @@ public class GUI extends JPanel implements ActionListener{
 		//JLABEL
 		JLabel abflughafen=new JLabel("Abflughafen: ");
 		JLabel zielflughafen=new JLabel("Zielflughafen: ");
+		JLabel abflugland=new JLabel("Abflugland: ");
+		JLabel zielflugland=new JLabel("Zielflugland: ");
 		//GridBagLayout
 		GridBagConstraints g = new GridBagConstraints();
 		
@@ -208,7 +213,7 @@ public class GUI extends JPanel implements ActionListener{
 		g.gridx=1;
 		g.gridy=1;
 		g.anchor=GridBagConstraints.LINE_START;
-		p2_1.add(zielflughafenbox, g);
+		p2_1.add(zielflughafenbox,g);
 		
 		JButton Buchen =new JButton("Buchen");
 		p3_1.add(Buchen, BorderLayout.CENTER);
