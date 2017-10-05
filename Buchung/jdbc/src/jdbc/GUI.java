@@ -16,8 +16,8 @@ public class GUI extends JPanel implements ActionListener{
 	static JTextField sqldatabase=new JTextField();
 	static JComboBox abflughafenbox = new JComboBox();
 	static JComboBox zielflughafenbox = new JComboBox();
-	static JComboBox abfluglandbox=new JComboBox();
-	static JComboBox zielfluglandbox=new JComboBox();
+	static JComboBox flightsbox=new JComboBox();
+	static JLabel flugbescheid = new JLabel("Kein Flug gefunden");
 	JFrame f;
 	JPanel p;
 	JPanel p1;
@@ -27,7 +27,7 @@ public class GUI extends JPanel implements ActionListener{
 	JFrame f_1;
 	JPanel p_1;
 	JPanel p1_1;
-	JPanel p2_1;
+	static JPanel p2_1;
 	JPanel p3_1;
 	
 	public void guimodell_connect(){
@@ -142,11 +142,7 @@ public class GUI extends JPanel implements ActionListener{
 		sqlport.setText("3306");
 		sqldatabase.setText("flightdata");
 		sqluser.setText("root");
-		
-		p.setBackground(Color.RED);
-		p1.setBackground(Color.YELLOW);
-		p2.setBackground(Color.BLUE);
-		p3.setBackground(Color.GREEN);
+
 		
 		f.setContentPane(p);
 		f.pack();
@@ -180,18 +176,23 @@ public class GUI extends JPanel implements ActionListener{
 		ueberschrift.setHorizontalAlignment(JLabel.CENTER);
 		p1_1.add(ueberschrift, BorderLayout.CENTER);
 		
-		d.getAbFlughafen();
-		d.getZielFlughafen();
+		d.getFlughafen();
+		
+		
+		
 		//Adden
 		p_1.add(p1_1, BorderLayout.NORTH);
 		p_1.add(p3_1,BorderLayout.SOUTH);
 		p_1.add(p2_1,BorderLayout.CENTER);
 		
+		
+		//abflughafenbox.addActionListener(this);
+		//zielflughafenbox.addActionListener(this);
+		
 		//JLABEL
 		JLabel abflughafen=new JLabel("Abflughafen: ");
 		JLabel zielflughafen=new JLabel("Zielflughafen: ");
-		JLabel abflugland=new JLabel("Abflugland: ");
-		JLabel zielflugland=new JLabel("Zielflugland: ");
+		JLabel flights=new JLabel("Flüge: ");
 		//GridBagLayout
 		GridBagConstraints g = new GridBagConstraints();
 		
@@ -215,14 +216,25 @@ public class GUI extends JPanel implements ActionListener{
 		g.anchor=GridBagConstraints.LINE_START;
 		p2_1.add(zielflughafenbox,g);
 		
+		g.gridx=0;
+		g.gridy=2;
+		g.anchor=GridBagConstraints.LINE_END;
+		p2_1.add(flights, g);
+		
+		g.gridx=1;
+		g.gridy=2;
+		g.anchor=GridBagConstraints.LINE_END;
+		p2_1.add(flightsbox, g);
+		
+		flugbescheid.setVisible(false);
+		g.gridx=2;
+		g.gridy=3;
+		g.anchor=GridBagConstraints.LINE_START;
+		p2_1.add(flugbescheid, g);
+		
 		JButton Buchen =new JButton("Buchen");
 		p3_1.add(Buchen, BorderLayout.CENTER);
 		Buchen.addActionListener(this);
-		
-		p_1.setBackground(Color.RED);
-		p1_1.setBackground(Color.YELLOW);
-		p2_1.setBackground(Color.BLUE);
-		p3_1.setBackground(Color.GREEN);
 		
 		f_1.setContentPane(p_1);
 		f_1.pack();
@@ -234,7 +246,7 @@ public class GUI extends JPanel implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			
 			try {
-				
+				Driver d=new Driver();
 				switch (e.getActionCommand()) {
 					
 				// Je nach Button werden andere Querys eingeleitet
@@ -245,6 +257,15 @@ public class GUI extends JPanel implements ActionListener{
 				
 				case "Buchen":
 									System.out.println(abflughafenbox.getSelectedItem());
+									String s=String.valueOf(abflughafenbox.getSelectedItem());
+									String[] sarr= s.split(",");
+									System.out.println(sarr[1]);
+									System.out.println(zielflughafenbox.getSelectedItem());
+									String s1=String.valueOf(zielflughafenbox.getSelectedItem());
+									String[] s1arr= s1.split(",");
+									System.out.println(s1arr[1]);
+									d.getFlights();
+									break;
 				default:			
 									System.out.println("Something went wrong!");
 									break;

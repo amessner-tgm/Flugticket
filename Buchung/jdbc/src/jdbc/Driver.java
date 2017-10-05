@@ -1,4 +1,5 @@
 package jdbc;
+import java.awt.Color;
 import java.sql.*;
 import java.util.ArrayList;
 public class Driver{
@@ -7,12 +8,14 @@ public class Driver{
 	PreparedStatement ps2;
 	PreparedStatement ps3;
 	PreparedStatement ps4;
+	PreparedStatement ps5;
 	ResultSet rs;
 	ResultSet rs2;
 	ResultSet rs3;
 	ResultSet rs4;
-	ArrayList<String> abflughafen = new ArrayList<String>();
-	ArrayList<String> zielflughafen = new ArrayList<String>();
+	ResultSet rs5;
+	ArrayList<String> flughafen = new ArrayList<String>();
+	ArrayList<String> flights = new ArrayList<String>();
 	public Driver(){
 		try {
 			// Connection
@@ -33,49 +36,56 @@ public class Driver{
 		}
 
 	}
-	public void getAbFlughafen(){
+	
+	public void getFlughafen(){
 		try{
-			ps2=con.prepareStatement("Select countries.code,countries.name,airports.name from airports,countries WHERE airports.country=countries.code");
+			ps2=con.prepareStatement("Select countries.name,airports.name from airports,countries WHERE airports.country = countries.code ORDER BY 1,2;");
 			rs2=ps2.executeQuery();
 			while(rs2.next()){
-				abflughafen.add(rs2.getString("countries.name")+", "+rs2.getString("airports.name"));
+				String land=rs2.getString("countries.name");
+				String airport=rs2.getString("airports.name");
+				flughafen.add(land+","+airport);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		String abflughafenArr[] = abflughafen.toArray(new String[abflughafen.size()]);
+		String flughafenArr[] = flughafen.toArray(new String[flughafen.size()]);
 		
-		for(String s: abflughafenArr) {
+		for(String s: flughafenArr) {
 			GUI.abflughafenbox.addItem(s);
-		}
-		
-	}
-	public void getZielFlughafen(){
-		try{
-			ps3=con.prepareStatement("Select countries.code,countries.name,airports.name from airports,countries WHERE airports.country=countries.code");
-			rs3=ps3.executeQuery();
-			while(rs3.next()){
-				zielflughafen.add(rs3.getString("countries.name")+", "+rs3.getString("airports.name"));
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		String zielflughafenArr[] = zielflughafen.toArray(new String[zielflughafen.size()]);
-		
-		for(String s: zielflughafenArr) {
 			GUI.zielflughafenbox.addItem(s);
 		}
 		
 	}
 	public void getFlights(){
+		GUI.flightsbox.removeAllItems();
+		String abflugh =  (String) GUI.abflughafenbox.getSelectedItem();
+		String zielflugh = (String) GUI.zielflughafenbox.getSelectedItem();
+		String[] abflughsplit = abflugh.split(",");
+		String[] zielflughsplit = zielflugh.split(",");
 		try{
-			ps4=con.prepareStatement("Select flights.airline,flights.flightnr,flights.planetype from flights");
+			ps3=con.prepareStatement("select * from flights,(select airportcode as 'abflugcode'  from airports WHERE name='"+abflughsplit[1]+"')abflugh,(select airportcode as 'zielflugcode' from airports WHERE name='"+zielflughsplit[1]+"')zielflugh WHERE abflugcode = departure_airport AND zielflugcode = destination_airport;");
+			rs3=ps3.executeQuery();
+			
+			while(rs3.next()){
+				flights.add("Abflug: " +rs3.getDate("departure_time")+", "+rs3.getTime("departure_time")+", " +rs3.getString("departure_airport")
+				+ ", Ankunft: "+rs3.getDate("destination_time")+", "+rs3.getTime("destination_time")+", "+rs3.getString("destination_airport")+", Flugnummer: "+rs3.getInt("flightnr")+", Airline: "+rs3.getString("airline"));
+			}
+			
+			String[] flightsArr= flights.toArray(new String[flights.size()]);
+			for(String s: flightsArr){
+				GUI.flightsbox.addItem(s);
+				System.out.println(s);
+			}
+			if(flightsArr.length==0){
+				GUI.p2_1.setBackground(Color.RED);
+				GUI.flugbescheid.setVisible(true);
+			}else{
+				GUI.p2_1.setBackground(Color.GREEN);
+				GUI.flugbescheid.setVisible(false);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	}
-	public static void main(String[] arqs){
-		Driver d= new Driver();
-		d.getAbFlughafen();
 	}
 }
