@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
+/*
+ * git@github.com:amessner-tgm/Flugticket.git
+ */
 public class GUI extends JPanel implements ActionListener{
 	static JTextField sqlserver=new JTextField();
 	static JTextField sqlport=new JTextField();
@@ -19,9 +21,13 @@ public class GUI extends JPanel implements ActionListener{
 	static JComboBox abflughafenbox = new JComboBox();
 	static JComboBox zielflughafenbox = new JComboBox();
 	static JComboBox flightsbox=new JComboBox();
-	static JComboBox seat=new JComboBox();
-	static JComboBox row=new JComboBox();
+	static JComboBox seatbox=new JComboBox();
+	static JComboBox rowbox=new JComboBox();
 	static JLabel flugbescheid = new JLabel("Kein Flug gefunden");
+	static JLabel gebucht=new JLabel("Erfolgreich gebucht");
+	
+	JButton buchen_buchen=new JButton("Flug buchen");
+	
 	JFrame f;
 	JPanel p;
 	JPanel p1;
@@ -33,6 +39,12 @@ public class GUI extends JPanel implements ActionListener{
 	JPanel p1_1;
 	static JPanel p2_1;
 	JPanel p3_1;
+	
+	static JFrame f_2;
+	static JPanel p_2;
+	JPanel p1_2;
+	JPanel p2_2;
+	JPanel p3_2;
 	
 	public void guimodell_connect(){
 		f=new JFrame();
@@ -197,8 +209,6 @@ public class GUI extends JPanel implements ActionListener{
 		JLabel abflughafen=new JLabel("Abflughafen: ");
 		JLabel zielflughafen=new JLabel("Zielflughafen: ");
 		JLabel flights=new JLabel("Flüge: ");
-		JLabel vname=new JLabel("Vorname: ");
-		JLabel nname=new JLabel("Nachname: ");
 		//GridBagLayout
 		GridBagConstraints g = new GridBagConstraints();
 		
@@ -240,15 +250,121 @@ public class GUI extends JPanel implements ActionListener{
 		g.anchor=GridBagConstraints.LINE_START;
 		p2_1.add(flugbescheid, g);
 		
+		p3_1.setBorder(new EmptyBorder(20,20,20,20));
+		Border buttonBorder = new EmptyBorder(5,25,5,25);
+		p3_1.setLayout(new BoxLayout(p3_1,BoxLayout.X_AXIS));
+		p3_1.add(Box.createHorizontalGlue());
 		JButton check =new JButton("Flug prüfen");
-		p3_1.add(check, BorderLayout.CENTER);
+		check.setBorder(buttonBorder);
+		p3_1.add(check);
 		check.addActionListener(this);
+		p3.add(Box.createRigidArea(new Dimension(20, 0)));
+		
+		JButton buchen=new JButton("Buchen");
+		buchen.setBorder(buttonBorder);;
+		p3_1.add(buchen);
+		buchen.addActionListener(this);
+		p3.add(Box.createRigidArea(new Dimension(20, 0)));
+		p3_1.add(Box.createHorizontalGlue());
+		
 		
 		f_1.setContentPane(p_1);
 		f_1.pack();
 		f_1.setLocationRelativeTo(null);
 		f_1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f_1.setVisible(true);
+	}
+	public void guimodell_buchen(){
+		f_2=new JFrame();
+		f_2.setTitle("Flugticket");
+		f_2.setBackground(Color.GRAY);
+		f_2.setPreferredSize(new Dimension (400,250));
+		//ContentPane
+		p_2 =new JPanel();
+		p_2.setLayout(new BorderLayout());
+		//UeberschriftPanel
+		p1_2 = new JPanel();
+		p1_2.setLayout(new BorderLayout());
+		//MainPanel
+		p2_2 = new JPanel();
+		p2_2.setLayout(new GridBagLayout());
+		//ButtonPanel
+		p3_2 = new JPanel();
+		p3_2.setLayout(new BorderLayout());
+		
+		//Überschrift
+		JLabel ueberschrift=new JLabel("Flugticket");
+		ueberschrift.setFont(new Font("Flugticket",Font.BOLD,20));
+		ueberschrift.setHorizontalAlignment(JLabel.CENTER);
+		p1_2.add(ueberschrift, BorderLayout.CENTER);
+		
+		
+		
+		
+		
+		//Adden
+		p_2.add(p1_2, BorderLayout.NORTH);
+		p_2.add(p3_2,BorderLayout.SOUTH);
+		p_2.add(p2_2,BorderLayout.CENTER);
+
+		
+		//JLABEL
+		JLabel vname=new JLabel("Vorname: ");
+		JLabel nname=new JLabel("Nachname: ");
+		JLabel sitz=new JLabel("Sitz: ");
+		JLabel reihe=new JLabel("Reihe: ");
+		vnamefield.setColumns(20);
+		nnamefield.setColumns(20);
+		//GridBagLayout
+		GridBagConstraints g = new GridBagConstraints();
+		g.gridx=0;
+		g.gridy=0;
+		g.anchor=GridBagConstraints.LINE_END;
+		p2_2.add(vname,g);
+		
+		g.gridx=1;
+		g.gridy=0;
+		g.anchor=GridBagConstraints.LINE_START;
+		p2_2.add(vnamefield,g);
+		
+		g.gridx=0;
+		g.gridy=1;
+		g.anchor=GridBagConstraints.LINE_END;
+		p2_2.add(nname,g);
+		
+		g.gridx=1;
+		g.gridy=1;
+		g.anchor=GridBagConstraints.LINE_START;
+		p2_2.add(nnamefield,g);
+		
+		g.gridx=0;
+		g.gridy=2;
+		g.anchor=GridBagConstraints.LINE_END;
+		p2_2.add(sitz, g);
+		
+		g.gridx=1;
+		g.gridy=2;
+		g.anchor=GridBagConstraints.LINE_START;
+		p2_2.add(seatbox, g);
+		
+		g.gridx=2;
+		g.gridy=2;
+		g.anchor=GridBagConstraints.LINE_END;
+		p2_2.add(reihe, g);
+		
+		g.gridx=3;
+		g.gridy=2;
+		g.anchor=GridBagConstraints.LINE_START;
+		p2_2.add(rowbox, g);
+				
+		p3_2.add(buchen_buchen);
+		buchen_buchen.addActionListener(this);
+		
+		f_2.setContentPane(p_2);
+		f_2.pack();
+		f_2.setLocationRelativeTo(null);
+		f_2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f_2.setVisible(true);
 	}
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -275,6 +391,15 @@ public class GUI extends JPanel implements ActionListener{
 									String[] s1arr= s1.split(",");
 									System.out.println(s1arr[1]);*/
 									d.getFlights();
+									break;
+				case "Buchen":		
+									if(p2_1.getBackground()==Color.GREEN){
+										guimodell_buchen();
+									}
+									d.adding();
+									break;
+				case "Flug buchen":
+									d.buchen();
 									break;
 				default:			
 									System.out.println("Something went wrong!");

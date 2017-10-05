@@ -2,6 +2,11 @@ package jdbc;
 import java.awt.Color;
 import java.sql.*;
 import java.util.ArrayList;
+/*
+ * git@github.com:amessner-tgm/Flugticket.git
+ */
+
+import javax.swing.JOptionPane;
 public class Driver{
 	Connection con;
 	PreparedStatement ps;
@@ -9,13 +14,23 @@ public class Driver{
 	PreparedStatement ps3;
 	PreparedStatement ps4;
 	PreparedStatement ps5;
+	PreparedStatement ps6;
+	PreparedStatement ps7;
+	PreparedStatement ps8;
 	ResultSet rs;
 	ResultSet rs2;
 	ResultSet rs3;
 	ResultSet rs4;
 	ResultSet rs5;
+	ResultSet rs6;
+	ResultSet rs7;
+	ResultSet rs8;
 	ArrayList<String> flughafen = new ArrayList<String>();
 	ArrayList<String> flights = new ArrayList<String>();
+	ArrayList<String> rowslist=new ArrayList<String>();
+	
+	String maxseats;
+	String seatsperrow;
 	public Driver(){
 		try {
 			// Connection wird hergestellt mit den Daten durch die Textfelder in GUI
@@ -91,7 +106,102 @@ public class Driver{
 			e.printStackTrace();
 		}
 	}
-	public void buchen(){
+	public String getFlightNr(){
+		//Selected Flug von Dropdownliste holen
+		String flightdata=(String) GUI.flightsbox.getSelectedItem();
+		//diesen splitten auf vor Flugnummer und nach Flugnummer
+		String[] flightdatasplit=flightdata.split("Flugnummer: ");
+		//zweiter split nötig da airline auch noch nach flugnummer kommt
+		String[] flightnrsplit=flightdatasplit[1].split(", Airline: ");
+		String flugnr = flightnrsplit[0];
+		return flugnr;
+	}
+	//Airline bekommen
+	public String getAirline(){
+		//Airline vom ausgewaehlten Flug holen
+		String flightdata=(String) GUI.flightsbox.getSelectedItem();
+		String[] flightdatasplit=flightdata.split("Airline: ");
+		String airline=flightdatasplit[1];
+		return airline;
+	}
+	
+	public int getRows() {
+		int rows = 0;
+		try {
+			//maximalen sitze und sitze pro reihe holen von einem flieger
+			ps5 = con.prepareStatement("select planes.maxseats,planes.seatsperrow,planes.id from planes INNER JOIN flights ON planes.id=flights.planetype WHERE flights.flightnr='"+getFlightNr()+"' AND flights.airline='"+getAirline()+"';");
+			rs5 = ps5.executeQuery();
+			
+			while (rs5.next()) {
+				maxseats=rs5.getString("planes.maxseats");
+				seatsperrow=rs5.getString("planes.seatsperrow");
+				//sitze im flugzeug / sitze pro reihe um die reihen zu bekommen
+				rows = rs5.getInt("planes.maxseats")/rs5.getInt("planes.seatsperrow");;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rows;
+	}
+	public void adding(){
+		try{
+		//Sitzreihen
+		String[] seatsArr ={"A","B","C","D","E","F","G","H","I","J","K","L","M","N"};
+		//Sitze werden in die Dropdownlist geaddet man sollte es aber mit seatsperrow machen damit es stimmt hat aber nicht funktoniert
+		for(int i=0;i<seatsArr.length;i++){
+			GUI.seatbox.addItem(seatsArr[i]);
+		}
+		//Sitzreihen werden in die arraylist geaddet also 1,2,3,4,5 usw. bis die maximal reihen anzahl in flugzeug erreich wurde die in getRows() errechnet wurde
+		for(int i=1;i<=getRows();i++){
+			rowslist.add(String.valueOf(i));
+		}
+		//arraylist in array
+		String[] rowsArr=rowslist.toArray(new String[rowslist.size()]);
+		//einzelnen reihen also 1,2,3,4,usw. werden in die Dropdownliste geaddet
+		for(String s:rowsArr){
+			GUI.rowbox.addItem(s);
+		}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 	}
+	
+	public void buchen(){
+		//daten bekommen, notwendig um Passenger hinzuzufügen
+		String vname=GUI.vnamefield.getText();
+		String nname=GUI.nnamefield.getText();
+		String flightnr=getFlightNr();
+		String airline=getAirline();
+		String reihe=(String) GUI.rowbox.getSelectedItem();
+		String seat=(String) GUI.seatbox.getSelectedItem();
+		//falls der Vorname oder Nachname leer/einen ; beinhaltet muss man ihn neu eintragen
+		if(GUI.vnamefield.getText().isEmpty() || GUI.vnamefield.getText().contains(";")|| GUI.vnamefield.getText().isEmpty() || GUI.vnamefield.getText().contains(";")){
+			GUI.vnamefield.setText("Vorname überprüfen, keine Sonderzeichen!");
+			GUI.nnamefield.setText("Nachname überprüfen, keine Sonderzeichen!");
+		}else{
+			try {
+				//wenn Namen korrekt sind dann kann der Passargier hinzugefügt werden
+				ps4 = con.prepareStatement("INSERT INTO passengers VALUES(NULL,'"+vname+"','"+nname+"','"+airline+"','"+flightnr+"','"+Integer.parseInt(reihe)+"','"+seat+"');");
+				ps4.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("Fehlgeschlagen");
+			}
+			//durch grünen screen und meldung sieht man das der Passagier hinzugefügt wurde
+			GUI.p_2.setBackground(Color.GREEN);
+			JOptionPane.showMessageDialog(GUI.f_2, "Erfolgreich gebucht");
+			//zur Sicherheit nochmal in die Console ausgeben
+			System.out.println("Passagier: "+vname+" "+nname+", Airline: "+airline+", Flugnummer: "+flightnr+" in Reihe: "+Integer.parseInt(reihe)+" auf Sitz: "+seat+" wurde erstellt!");
+			try {
+				//Frames werden geschlossen
+				System.exit(0);
+				System.out.println("Gebucht");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 }
