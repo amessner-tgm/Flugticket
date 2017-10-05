@@ -141,7 +141,7 @@ public class GUI extends JPanel implements ActionListener{
 		p3.add(Connect,BorderLayout.CENTER);
 		Connect.addActionListener(this);
 		
-		//text wird gesetzt zum verkürzen der testzeit
+		
 		sqlserver.setText("localhost");
 		sqlport.setText("3306");
 		sqldatabase.setText("flightdata");
@@ -179,7 +179,7 @@ public class GUI extends JPanel implements ActionListener{
 		ueberschrift.setFont(new Font("Flugticket",Font.BOLD,20));
 		ueberschrift.setHorizontalAlignment(JLabel.CENTER);
 		p1_1.add(ueberschrift, BorderLayout.CENTER);
-		//wird aufgerufen damit man die flugaefen bekommt
+		
 		d.getFlughafen();
 		
 		
@@ -189,7 +189,7 @@ public class GUI extends JPanel implements ActionListener{
 		p_1.add(p3_1,BorderLayout.SOUTH);
 		p_1.add(p2_1,BorderLayout.CENTER);
 		
-		//war ein test funktioniert leider nicht
+		
 		//abflughafenbox.addActionListener(this);
 		//zielflughafenbox.addActionListener(this);
 		
@@ -232,7 +232,6 @@ public class GUI extends JPanel implements ActionListener{
 		g.anchor=GridBagConstraints.LINE_END;
 		p2_1.add(flightsbox, g);
 		
-		//Schrift ob Flug gefunden oder nicht
 		flugbescheid.setFont(new Font("Kein Flug gefunden",Font.BOLD,20));
 		flugbescheid.setVisible(false);
 		g.gridx=1;
@@ -260,20 +259,18 @@ public class GUI extends JPanel implements ActionListener{
 				// Je nach Button werden andere Querys eingeleitet
 				
 				case "Connect":
-									//neues Frame wird geöffnet
 									guimodell_flug();
 									break;
 				
 				case "Flug prüfen":
-									//waren Tests um zu sehen wo der Fehler war
-									/*System.out.println(abflughafenbox.getSelectedItem());
+									System.out.println(abflughafenbox.getSelectedItem());
 									String s=String.valueOf(abflughafenbox.getSelectedItem());
 									String[] sarr= s.split(",");
 									System.out.println(sarr[1]);
 									System.out.println(zielflughafenbox.getSelectedItem());
 									String s1=String.valueOf(zielflughafenbox.getSelectedItem());
 									String[] s1arr= s1.split(",");
-									System.out.println(s1arr[1]);*/
+									System.out.println(s1arr[1]);
 									d.getFlights();
 									break;
 				default:			

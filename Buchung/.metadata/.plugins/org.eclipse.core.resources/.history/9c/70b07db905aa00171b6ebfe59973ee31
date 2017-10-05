@@ -76,14 +76,12 @@ public class Driver{
 			String[] flightsArr= flights.toArray(new String[flights.size()]);
 			for(String s: flightsArr){
 				GUI.flightsbox.addItem(s);
+				System.out.println(s);
 			}
-			
 			if(flightsArr.length==0){
-				//falls kein flug vorhanden roter background und schrift kommt
 				GUI.p2_1.setBackground(Color.RED);
 				GUI.flugbescheid.setVisible(true);
 			}else{
-				//falls flug vorhanden wird background gruen und schrift taucht nicht auf
 				GUI.p2_1.setBackground(Color.GREEN);
 				GUI.flugbescheid.setVisible(false);
 			}

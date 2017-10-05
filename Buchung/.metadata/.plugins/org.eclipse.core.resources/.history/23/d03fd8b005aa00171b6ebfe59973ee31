@@ -68,7 +68,7 @@ public class Driver{
 			rs3=ps3.executeQuery();
 			
 			while(rs3.next()){
-				//hier wird alles in die arraylist hinzugefügt und so wird es dann in der Dropdownliste stehen
+				//hier wird alles richtig ausgegeben und so wird es dann in der Dropdownliste stehen
 				flights.add("Abflug: " +rs3.getDate("departure_time")+", "+rs3.getTime("departure_time")+", " +rs3.getString("departure_airport")
 				+ ", Ankunft: "+rs3.getDate("destination_time")+", "+rs3.getTime("destination_time")+", "+rs3.getString("destination_airport")+", Flugnummer: "+rs3.getInt("flightnr")+", Airline: "+rs3.getString("airline"));
 			}
@@ -76,14 +76,12 @@ public class Driver{
 			String[] flightsArr= flights.toArray(new String[flights.size()]);
 			for(String s: flightsArr){
 				GUI.flightsbox.addItem(s);
+				System.out.println(s);
 			}
-			
 			if(flightsArr.length==0){
-				//falls kein flug vorhanden roter background und schrift kommt
 				GUI.p2_1.setBackground(Color.RED);
 				GUI.flugbescheid.setVisible(true);
 			}else{
-				//falls flug vorhanden wird background gruen und schrift taucht nicht auf
 				GUI.p2_1.setBackground(Color.GREEN);
 				GUI.flugbescheid.setVisible(false);
 			}

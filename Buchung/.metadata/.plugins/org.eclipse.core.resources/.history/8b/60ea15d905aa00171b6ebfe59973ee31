@@ -83,7 +83,7 @@ public class Driver{
 				GUI.p2_1.setBackground(Color.RED);
 				GUI.flugbescheid.setVisible(true);
 			}else{
-				//falls flug vorhanden wird background gruen und schrift taucht nicht auf
+				//falls flug vorhanden wird background gruen
 				GUI.p2_1.setBackground(Color.GREEN);
 				GUI.flugbescheid.setVisible(false);
 			}

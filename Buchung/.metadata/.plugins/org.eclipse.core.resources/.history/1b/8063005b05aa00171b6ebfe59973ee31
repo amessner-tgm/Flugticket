@@ -30,8 +30,7 @@ public class Driver{
 	
 	public void getFlughafen(){
 		try{
-			//alle Laender,Flughaefen werden passend geholt damit land und flughafen übereinstimmen ausserdem wird zuerst nach Land dann nach Flughafen geordnet für
-			//bessere übersicht
+			//alle Laender,Flughaefen werden passend geholt damit land und flughafen übereinstimmen ausserdem wird zuerst nach Land dann nach Flughafen geordnet
 			ps2=con.prepareStatement("Select countries.name,airports.name from airports,countries WHERE airports.country = countries.code ORDER BY 1,2;");
 			rs2=ps2.executeQuery();
 			while(rs2.next()){
@@ -63,12 +62,10 @@ public class Driver{
 		String[] abflughsplit = abflugh.split(",");
 		String[] zielflughsplit = zielflugh.split(",");
 		try{
-			//hier bekommen wir die ganzen daten zu einem flug muessen aber noch den richtigen flug bekommen dazu braucht man den airportcode
 			ps3=con.prepareStatement("select * from flights,(select airportcode as 'abflugcode'  from airports WHERE name='"+abflughsplit[1]+"')abflugh,(select airportcode as 'zielflugcode' from airports WHERE name='"+zielflughsplit[1]+"')zielflugh WHERE abflugcode = departure_airport AND zielflugcode = destination_airport;");
 			rs3=ps3.executeQuery();
 			
 			while(rs3.next()){
-				//hier wird alles in die arraylist hinzugefügt und so wird es dann in der Dropdownliste stehen
 				flights.add("Abflug: " +rs3.getDate("departure_time")+", "+rs3.getTime("departure_time")+", " +rs3.getString("departure_airport")
 				+ ", Ankunft: "+rs3.getDate("destination_time")+", "+rs3.getTime("destination_time")+", "+rs3.getString("destination_airport")+", Flugnummer: "+rs3.getInt("flightnr")+", Airline: "+rs3.getString("airline"));
 			}
@@ -76,14 +73,12 @@ public class Driver{
 			String[] flightsArr= flights.toArray(new String[flights.size()]);
 			for(String s: flightsArr){
 				GUI.flightsbox.addItem(s);
+				System.out.println(s);
 			}
-			
 			if(flightsArr.length==0){
-				//falls kein flug vorhanden roter background und schrift kommt
 				GUI.p2_1.setBackground(Color.RED);
 				GUI.flugbescheid.setVisible(true);
 			}else{
-				//falls flug vorhanden wird background gruen und schrift taucht nicht auf
 				GUI.p2_1.setBackground(Color.GREEN);
 				GUI.flugbescheid.setVisible(false);
 			}

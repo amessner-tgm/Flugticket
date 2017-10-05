@@ -260,20 +260,18 @@ public class GUI extends JPanel implements ActionListener{
 				// Je nach Button werden andere Querys eingeleitet
 				
 				case "Connect":
-									//neues Frame wird geöffnet
 									guimodell_flug();
 									break;
 				
 				case "Flug prüfen":
-									//waren Tests um zu sehen wo der Fehler war
-									/*System.out.println(abflughafenbox.getSelectedItem());
+									System.out.println(abflughafenbox.getSelectedItem());
 									String s=String.valueOf(abflughafenbox.getSelectedItem());
 									String[] sarr= s.split(",");
 									System.out.println(sarr[1]);
 									System.out.println(zielflughafenbox.getSelectedItem());
 									String s1=String.valueOf(zielflughafenbox.getSelectedItem());
 									String[] s1arr= s1.split(",");
-									System.out.println(s1arr[1]);*/
+									System.out.println(s1arr[1]);
 									d.getFlights();
 									break;
 				default:			

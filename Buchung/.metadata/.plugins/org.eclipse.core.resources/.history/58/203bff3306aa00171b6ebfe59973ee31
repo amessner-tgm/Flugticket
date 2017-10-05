@@ -260,7 +260,6 @@ public class GUI extends JPanel implements ActionListener{
 				// Je nach Button werden andere Querys eingeleitet
 				
 				case "Connect":
-									//neues Frame wird geöffnet
 									guimodell_flug();
 									break;
 				
